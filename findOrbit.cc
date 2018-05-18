@@ -23,7 +23,7 @@ int main(int argc,char *argv[])
  ifstream file;
  ofstream out;
  int nOut = 10; // default just in case
- string potfile = "pot/PJM16_best.Tpot";
+ string potfile = "pot/test.Tpot";
  Potential *Phi;
  
  // Read potential from file 
@@ -57,7 +57,7 @@ int main(int argc,char *argv[])
  XV[5] = atof(argv[6]) * Units::kms; // v_phi
  
  // Set up Integrator class
- OrbitIntegratorWithStats OI(XV, Phi, 10000.);
+ OrbitIntegratorWithStats OI(XV, Phi, 8000.);
 
  Vector<double,6> *OrbOut = new Vector<double,6>[nOut];
 

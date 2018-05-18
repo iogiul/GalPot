@@ -15,14 +15,14 @@ CPP		= g++
 LIBPOT		= obj/libPot.a
 LIBOTHER	= obj/libOther.a
 
-CFLAGS        = -c -o $@.o -O3 -ffast-math -Isrc/
-CFLAGSKEEP    = -c -o $@ -O3 -ffast-math -Isrc/
+CFLAGS        = -c -o $@.o -O3 -fopenmp -Isrc/ 
+CFLAGSKEEP    = -c -o $@ -O3 -fopenmp -Isrc/ 
 
-#CMPFLAGS        = -c -o $@.o -O3 -ffast-math -fopenmp -Isrc/
+#CMPFLAGS        = -c -o $@.o -O3 -fopenmp -Isrc/
 
-MFLAGS	= -O3 -ffast-math -Isrc/
+MFLAGS	= -O3  -Isrc/ -fopenmp
 
-LDFLAGS      = -o $@ -Lobj/ -lPot -lOther -lm
+LDFLAGS      = -o $@ -Lobj/ -lPot -lOther -lm -fopenmp
 
 # commands to put file into library
 AR            = ar r
