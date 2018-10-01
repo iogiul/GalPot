@@ -551,7 +551,7 @@ inline GalaxyPotential::GalaxyPotential(std::istream &from)
 inline GalaxyPotential::GalaxyPotential(const int Nd, const DiskPar* pd,
 					const int Ns, const SphrPar* ps,
 					const double rmin, const double rmax,
-			 		const int k)
+					const int k)
   : Disks(Nd,pd),
     Spheroids(Ns,ps),
     M(k,rmin,rmax,Spheroids::gamma(),Spheroids::beta(),this)

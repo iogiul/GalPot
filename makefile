@@ -8,21 +8,21 @@ all: testGalPot.exe findOrbit.exe findOrbitProperties.exe \
 		findManyOrbitPropertiesfromEquatorialwErrors.exe \
 		findManyOrbitPropertiesfromRAVEMultiGaussian.exe \
 		findManyOrbitPropertiesfromGaiaSimple.exe Coord_converter.exe RotCurve.exe \
-		findOrbitMultiPot.exe \
+		findOrbitMultiPot.exe Orbit_parallel.exe Orbit_parallel_GC.exe\
 		GalPot Other
 
 CPP		= g++
 LIBPOT		= obj/libPot.a
 LIBOTHER	= obj/libOther.a
 
-CFLAGS        = -c -o $@.o -O3 -fopenmp -Isrc/ 
-CFLAGSKEEP    = -c -o $@ -O3 -fopenmp -Isrc/ 
+CFLAGS        = -c -o $@.o -O3 -ffast-math -fopenmp -Isrc/
+CFLAGSKEEP    = -c -o $@ -O3 -ffast-math -fopenmp -Isrc/
 
-#CMPFLAGS        = -c -o $@.o -O3 -fopenmp -Isrc/
+#CMPFLAGS        = -c -o $@.o -O3 -ffast-math -fopenmp -Isrc/
 
-MFLAGS	= -O3  -Isrc/ -fopenmp
+MFLAGS	= -O3 -ffast-math -fopenmp -Isrc/
 
-LDFLAGS      = -o $@ -Lobj/ -lPot -lOther -lm -fopenmp
+LDFLAGS      = -o $@ -Lobj/ -lPot -lOther -lm
 
 # commands to put file into library
 AR            = ar r
