@@ -129,6 +129,7 @@ int main(int argc,char *argv[])
     int IntegrationFail;
     Vector<double,7> *OVL = new Vector<double,7> [nData];
     Vector<double,11> *EVL = new Vector<double,11> [nData];
+    Vector<double, 7> *PSL = new Vector<double,7> [nData*nOut];
     OrbitIntegratorWithStats* OIVEC= new  OrbitIntegratorWithStats[nData];
     
     
@@ -183,7 +184,13 @@ int main(int argc,char *argv[])
 				if (inc>incmax){
 					incmax=inc;
 				}	
-			
+				
+				//Save orbits stuff
+				PSL[iini+j][0]=i;
+				for(int k=1; k!=7; k++){
+					PSL[iini+j][k]=OrbOut[j][k-1];
+				}
+				
 				
             }
 
@@ -205,7 +212,14 @@ int main(int argc,char *argv[])
 	        EVL[i][10]=incmean; //imean
 		} else {
 				
-
+				for(int j=0;j!=nOut;j++){
+				//Save orbits stuff
+				PSL[iini+j][0]=i;
+				for(int k=1; k!=7; k++){
+					PSL[iini+j][k]=OrbOut[j][k-1];
+					}
+				}
+			
 		        EVL[i][0]=1.e10;
 		        EVL[i][1]=1.e10;
 		        EVL[i][2]=1.e10;
@@ -263,7 +277,26 @@ int main(int argc,char *argv[])
     output.close();
 	
 	
+	outputor.open(argv[3]);
+	outputor << "#0-id 1-R 2-z 3-Phi 4-VR 5-Vz 6-Vphi \n" << std::flush;
+		
+	for (int i=0; i<nData*nOut; i++) {
+            outputor
+        	<<PSL[i][0]  << ' ' //id
+        	<< PSL[i][1] / Units::kpc  << ' '   //R
+        	<< PSL[i][2] / Units::kpc  << ' '   //z
+        	<< PSL[i][3] / Units::degree  << ' '   //Phi
+        	<< PSL[i][4] / Units::kms  << ' '   //VR
+        	<< PSL[i][5] / Units::kms << ' '   //Vz
+			<< PSL[i][6] / Units::kms  << ' '   //VPhi
+        	<< std::endl << std::flush;
+				
+	}
+	
+    outputor.close();
+  
 
+  
 
 
   return 0;
