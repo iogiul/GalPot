@@ -125,10 +125,10 @@ int main(int argc,char *argv[])
     
     
     
-    int nOut=100;
+    int nOut=500;
     int IntegrationFail;
     Vector<double,7> *OVL = new Vector<double,7> [nData];
-    Vector<double,11> *EVL = new Vector<double,11> [nData];
+    Vector<double,12> *EVL = new Vector<double,12> [nData];
     OrbitIntegratorWithStats* OIVEC= new  OrbitIntegratorWithStats[nData];
     
     
@@ -148,7 +148,7 @@ int main(int argc,char *argv[])
     Vector<double,6> *OrbOut = new Vector<double,6>[nOut];
 
     Potential *Phic = new GalaxyPotential(nDisk, Dpar, nSphr, Spar);
-	double L,Lz,LR,LT,inc,incmax,incmin,incmean,Lzmin,Lzmax,Lmin,Lmax;
+	double L,Lz,LR,LT,inc,incmax,incmin,incmean,Lzmin,Lzmax,Lmin,Lmax,thetamax;
 	int iini, ifin;
 		
 	
@@ -190,6 +190,7 @@ int main(int argc,char *argv[])
 			incmean=(incmean/nOut)*torad;
 			incmin=incmin*torad;
 			incmax=incmax*torad;
+			thetamax=atan(OI.Maxz/OI.Maxr);
 			
             OVL[i][6]=tOut[nOut-1];
 			EVL[i][0]=OI.Minr/Units::kpc; //rperi
@@ -203,6 +204,7 @@ int main(int argc,char *argv[])
 	        EVL[i][8]=incmin; //imin
 	        EVL[i][9]=incmax; //imax
 	        EVL[i][10]=incmean; //imean
+	        EVL[i][11]=thetamax; //imean
 		} else {
 				
 
@@ -217,6 +219,7 @@ int main(int argc,char *argv[])
 		        EVL[i][8]=1.e10;
 		        EVL[i][9]=1.e10;
 		        EVL[i][10]=1.e10;
+		        EVL[i][11]=1.e10;
 			
 		}
 			
@@ -254,6 +257,7 @@ int main(int argc,char *argv[])
 		<< EVL[i][8]  << ' '  //incin
 		<< EVL[i][9]  << ' '  //incmax
 		<< EVL[i][10]  << ' '  //incmean
+		<< EVL[i][11]  << ' '  //thetamax
         << std::endl << std::flush;
          
         //output<< EVL[i][2] << std::endl << std::flush;
